@@ -1,5 +1,5 @@
-import { Box, Container, Grid } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import { Container, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, useParams } from "react-router-dom";
 import MovieListItem from "../../components/MovieListItem";
@@ -15,9 +15,9 @@ export default function ViewMore() {
 
   useEffect(() => {
     if (!loading) {
-      if (id === "popular") {
+      if (id === "Popular") {
         getPopularMovieList();
-      } else if (id === "topRated") {
+      } else if (id === "Top Rated") {
         getTopRatedMovieList();
       } else {
         getUpComingMovieList();
@@ -80,7 +80,18 @@ export default function ViewMore() {
   };
 
   return (
-    <Container fixed maxWidth={false}>
+    <Container maxWidth={false}>
+      <Typography
+        variant="h3"
+        component="h2"
+        gutterBottom
+        sx={{
+          textTransform: "uppercase",
+          fontSize: { xs: 30, lg: 50, md: 40, sm: 40 },
+        }}
+      >
+        {id} Movies
+      </Typography>
       <InfiniteScroll
         dataLength={movies.length}
         next={() => setpage((page) => page + 1)}
@@ -107,8 +118,8 @@ export default function ViewMore() {
               item
               lg={2}
               md={3}
-              sm={6}
-              xs={12}
+              sm={4}
+              xs={6}
               key={"popular_" + item?.id + index}
             >
               <MovieListItem data={item} />

@@ -1,30 +1,18 @@
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Alert,
-  Autocomplete,
-  Box,
-  CircularProgress,
-  FormControl,
+  Grid,
   IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
   Snackbar,
-  Stack,
-  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
 import InputBase from "@mui/material/InputBase";
-
+import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { AccountCircle } from "@mui/icons-material";
 import api from "../../misc/api";
 import { API_KEY } from "../../misc/config";
 
@@ -134,54 +122,59 @@ export default function Header({ open, handleDrawerOpen, drawerWidth }) {
 
   return (
     <>
-      <AppBar position="fixed" open={open}>
-        <Toolbar sx={{ flexGrow: 1 }}>
-          <Stack
-            sx={{ flexGrow: 1 }}
-            direction="row"
-            justifyContent={"space-between"}
-          >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-              }}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Movie Library
-            </Typography>
-            <Search onenter>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                onKeyDown={(e) => {
-                  if (e?.key === "Enter") {
-                    setsearchedText(e.target.value);
-                  }
-                }}
-                // onInput={()=>console.log(21313)}
-
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-          </Stack>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{ paddingBottom: { xs: 3, sm: 0, md: 0, lg: 0 } }}
+      >
+        <Toolbar>
+          <Grid container>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <Grid container sx={{ display: "flex", alignItems: "center" }}>
+                <Grid item>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={{ mr: 2, ...(open && { display: "none" }) }}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontSize: { xs: 16, sm: 20 } }}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Movie Library
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <Search onenter>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  onKeyDown={(e) => {
+                    if (e?.key === "Enter") {
+                      setsearchedText(e.target.value);
+                    }
+                  }}
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
 

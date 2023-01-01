@@ -1,6 +1,5 @@
 import {
   Box,
-
   Container,
   Divider,
   Grid,
@@ -16,7 +15,7 @@ import api from "../../misc/api";
 import { API_KEY } from "../../misc/config";
 
 export default function Home() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [popularMovieList, setpopularMovieList] = useState([]);
   const [topRatedMovieList, settopRatedMovieList] = useState([]);
   const [upcoomingMovieList, setupcoomingMovieList] = useState([]);
@@ -93,17 +92,18 @@ export default function Home() {
     };
   }, [getPopularMovieList]);
 
-
-  const goToViewMore = (param)=>{
-    navigate('/movies/'+param)
-  }
-
-
+  const goToViewMore = (param) => {
+    navigate("/movies/" + param);
+  };
 
   return (
-    <Container fixed maxWidth={false}>
+    <Container maxWidth={false}>
       <Box sx={{ flexGrow: 1 }}>
-        <Typography variant="h3" component="h2" gutterBottom mt={2}>
+        <Typography
+          variant="h4"
+          sx={{ fontSize: { xs: 25, sm: 35 } }}
+          gutterBottom
+        >
           Popular Movies
         </Typography>
         {loadingPopularMovies ? (
@@ -117,14 +117,14 @@ export default function Home() {
                 item
                 lg={2}
                 md={3}
-                sm={6}
-                xs={12}
+                sm={4}
+                xs={6}
                 key={"popular_" + item?.id + index}
               >
                 {index + 1 === popularMovieList.length ? (
-                  <ViewMoreBtn goToViewMore={()=>goToViewMore('popular')} />
+                  <ViewMoreBtn goToViewMore={() => goToViewMore("Popular")} />
                 ) : (
-                  <MovieListItem data={item}/>
+                  <MovieListItem data={item} />
                 )}
               </Grid>
             ))}
@@ -132,7 +132,12 @@ export default function Home() {
         )}
 
         <Divider variant="fullWidth" />
-        <Typography variant="h3" component="h2" gutterBottom mt={2}>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ fontSize: { xs: 25, sm: 35 } }}
+          gutterBottom
+        >
           Top Rated Movies
         </Typography>
         {loadingTopRatedMovies ? (
@@ -146,14 +151,14 @@ export default function Home() {
                 item
                 lg={2}
                 md={3}
-                sm={6}
-                xs={12}
+                sm={4}
+                xs={6}
                 key={"topRated" + item?.id + index}
               >
                 {index + 1 === topRatedMovieList.length ? (
-                  <ViewMoreBtn goToViewMore={()=>goToViewMore('topRated')} />
+                  <ViewMoreBtn goToViewMore={() => goToViewMore("Top Rated")} />
                 ) : (
-                  <MovieListItem data={item}/>
+                  <MovieListItem data={item} />
                 )}
               </Grid>
             ))}
@@ -161,7 +166,12 @@ export default function Home() {
         )}
 
         <Divider variant="fullWidth" />
-        <Typography variant="h3" component="h2" gutterBottom mt={2}>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ fontSize: { xs: 25, sm: 35 } }}
+          gutterBottom
+        >
           Upcoming Movies
         </Typography>
         {loadingUpcomingMovies ? (
@@ -175,14 +185,14 @@ export default function Home() {
                 item
                 lg={2}
                 md={3}
-                sm={6}
-                xs={12}
+                sm={4}
+                xs={6}
                 key={"upcoming" + item?.id + index}
               >
-                 {index + 1 === upcoomingMovieList.length ? (
-                  <ViewMoreBtn goToViewMore={()=>goToViewMore('upcoming')} />
+                {index + 1 === upcoomingMovieList.length ? (
+                  <ViewMoreBtn goToViewMore={() => goToViewMore("Upcoming")} />
                 ) : (
-                  <MovieListItem data={item}/>
+                  <MovieListItem data={item} />
                 )}
               </Grid>
             ))}

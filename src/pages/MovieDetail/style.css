@@ -1,17 +1,16 @@
 .text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
-            line-clamp: 2; 
-    -webkit-box-orient: vertical;
- }
-
-
-.youTube{
-    width: auto;
-    height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
-.youTubeList{
-    width: 10%;
+
+.youTube {
+  width: auto;
+  height: auto;
+}
+.youtubePlayer {
+  width: auto;
 }

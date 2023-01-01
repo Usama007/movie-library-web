@@ -1,4 +1,5 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Favorites from "../pages/Favorites";
 import Home from "../pages/Home";
 import MovieDetail from "../pages/MovieDetail";
 import MovieList from "../pages/MovieList";
@@ -9,7 +10,7 @@ export default function Navigation() {
     <Routes>
       <Route path="*" element={<Home />} />
       <Route path="/movie-detail/:id" element={<MovieDetail />} />
-      <Route path="/favorites" element={<Home />} />
+      <Route path="/favorites" element={<Favorites />} />
       <Route path="/movies/:id" element={<ViewMore />} />
       <Route path="/movie-list" element={<MovieList />} />
     </Routes>

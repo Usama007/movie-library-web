@@ -1,12 +1,11 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import * as React from "react";
 import Header from "./components/Header";
 import Sidebar, { DrawerHeader } from "./components/Sidebar";
 import Navigation from "./misc/navigation";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 
 const drawerWidth = 240;
 
@@ -33,6 +32,19 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
+  typography: {
+    fontFamily: 'RobotoBold, Arial',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+      @font-face {
+        font-family: 'RobotoBold';
+      }
+      `
+    }
+  }
+ 
 });
 
 export default function App() {
@@ -65,9 +77,13 @@ export default function App() {
           DrawerHeader={DrawerHeader}
         />
 
-        <Main open={open}>
+        <Main open={open} >
           <DrawerHeader />
+          <Box  sx={{
+        fontFamily: 'RobotoBold',
+      }}   mt={{ xs: 5, sm: 2, md: 0, lg: 0 }}>
           <Navigation />
+          </Box>
         </Main>
       </Box>
     </ThemeProvider>

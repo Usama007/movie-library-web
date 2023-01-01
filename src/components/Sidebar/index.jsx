@@ -1,26 +1,24 @@
 import { useTheme } from "@emotion/react";
+import { ArrowDropDown, Favorite, Home } from "@mui/icons-material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import {
+  Collapse,
   Divider,
   Drawer,
-  Grid,
   IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../misc/api";
 import { API_KEY } from "../../misc/config";
-import { useNavigate } from "react-router-dom";
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -40,7 +38,8 @@ export default function Sidebar({
   const theme = useTheme();
   const [genreList, setgenreList] = useState([]);
   const navigate = useNavigate();
-  const [selectedGenre, setselectedGenre] = useState("")
+  const [selectedGenre, setselectedGenre] = useState("");
+  const [isCollapsed, setisCollapsed] = useState(true);
 
   useEffect(() => {
     if (open) {
@@ -48,10 +47,6 @@ export default function Sidebar({
     }
     return () => {};
   }, [open]);
-
-  useEffect(() => {
-    console.log(genreList);
-  }, [genreList]);
 
   const getGenres = async () => {
     // setloading(true);
@@ -81,7 +76,7 @@ export default function Sidebar({
 
     if (response?.status === 200) {
       // setgenreList(response?.data?.genres);
-      setselectedGenre(genre_name)
+      setselectedGenre(genre_name);
       navigate("/movie-list", {
         state: {
           movies: response?.data?.results,
@@ -117,20 +112,50 @@ export default function Sidebar({
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem sx={{cursor:'pointer'}} onClick={() =>navigate('/') }>
-          <Typography variant="h4">GENRES</Typography>
+        <ListItem
+          sx={{ cursor: "pointer", justifyContent: "space-between" }}
+          onClick={() => navigate("/")}
+        >
+          <Home />
+          <Typography variant="h5">Home</Typography>
+          <ChevronRightIcon />
+        </ListItem>
+        <Divider />
+        <ListItem
+          sx={{ cursor: "pointer", justifyContent: "space-between" }}
+          onClick={() => navigate("/favorites")}
+        >
+          <Favorite />
+          <Typography variant="h5">Favorites</Typography>
+          <ChevronRightIcon />
+        </ListItem>
+        <Divider />
+        <ListItem
+          sx={{ cursor: "pointer", justifyContent: "space-between" }}
+          onClick={() => setisCollapsed(!isCollapsed)}
+        >
+          <MusicNoteIcon />
+          <Typography variant="h5">GENRES</Typography>
+          <ArrowDropDown />
         </ListItem>
       </List>
       <Divider />
-      <List>
-        {genreList.map((item, index) => (
-          <ListItem key={item?.id} disablePadding selected= {item?.name === selectedGenre}>
-            <ListItemButton onClick={() => getMovieList(item?.name)}>
-              <ListItemText primary={item?.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Collapse in={isCollapsed}>
+        <List>
+          {genreList.map((item, index) => (
+            <ListItem
+              key={item?.id}
+              disablePadding
+              selected={item?.name === selectedGenre}
+            >
+              <ListItemButton onClick={() => getMovieList(item?.name)}>
+                <ListItemText primary={item?.name} />
+                <ChevronRightIcon />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
     </Drawer>
   );
 }
